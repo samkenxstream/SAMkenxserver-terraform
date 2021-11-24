@@ -4,6 +4,8 @@ project_loc       = ""        # Region to create cluster IE us-east1
 
 force_destroy     = false     # Forces destroy of the S3 data bucket on `terraform destroy`.  Useful as true for development purposes.  Data in bucket will be unrecoverable   
 
+gke_release_channel = "REGULAR"
+
 node_spec         = "n1-standard-8"
 node_min          = 1
 node_max          = 9

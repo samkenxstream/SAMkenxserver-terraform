@@ -28,6 +28,8 @@ module "kube_private_cluster" {
   }
   node_tags = []
 
+  gke_release_channel = var.gke_release_channel
+
   # Node pool configuration
   preemptible_nodes  = var.preemptible_k8s_nodes
   nodes_machine_spec = var.node_spec
