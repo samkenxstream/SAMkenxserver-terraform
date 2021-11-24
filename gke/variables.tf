@@ -19,6 +19,12 @@ variable "basename" {
   description = "Name of deployment to be used as a base for naming resources."
 }
 
+variable "gke_release_channel" {
+  type = string
+  default = "REGULAR"
+  description = "The GKE release channel to subscribe to. Should be one of RAPID/REGULAR/STABLE"
+}
+
 variable "node_spec" {
   type        = string
   default     = "n1-standard-8"
