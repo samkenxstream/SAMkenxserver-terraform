@@ -20,6 +20,12 @@ variable "namespace" {
   description = "(Optional) The namespace of your CircleCI deployment in an existing cluster"
 }
 
+variable "create_nomad_resources" {
+  type        = bool
+  default     = true
+  description = "Enable creation of various GCP resources required for Nomad Clients"
+}
+
 variable "nomad_count" {
   type        = number
   default     = 1

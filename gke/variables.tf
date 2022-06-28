@@ -140,6 +140,12 @@ variable "ssh_jobs_allowed_cidr_blocks" {
   description = "This configures the allowable source IP blocks that may ssh into jobs using the 'rerun job with SSH' functionality."
 }
 
+variable "create_nomad_resources" {
+  type        = bool
+  default     = true
+  description = "Enable creation of various GCP resources required for Nomad Clients"
+}
+
 variable "nomad_count" {
   type    = number
   default = 1

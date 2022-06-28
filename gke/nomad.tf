@@ -11,4 +11,5 @@ module "nomad" {
   project_loc             = var.project_loc
   ssh_allowed_cidr_blocks = var.allowed_cidr_blocks
   ssh_enabled             = var.nomad_ssh_enabled
+  create_nomad_resources  = var.create_nomad_resources
 }
