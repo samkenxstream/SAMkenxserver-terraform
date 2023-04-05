@@ -7,13 +7,13 @@ force_destroy     = false     # Forces destroy of the S3 data bucket on `terrafo
 gke_release_channel = "REGULAR"
 
 node_spec         = "n1-standard-8"
-node_min          = 1
-node_max          = 9
+node_min          = 3
+node_max          = 4
 node_pool_cpu_max = 128
 node_pool_ram_max = 1024
 node_auto_repair  = true
 node_auto_upgrade = true
-initial_nodes     = 1
+initial_nodes     = 3
 
 enable_nat                     = true
 enable_bastion                 = false # [DEPRECATED - will be removed in the next release]
@@ -30,6 +30,10 @@ private_vms                    = false
 # Developers, this is typically the public IP address of your home/office
 # network IE [ "1.2.3.4/32" ].
 allowed_cidr_blocks = []
+
+# Create Google compute instance group manager for Nomad clients
+# Default is set to true, to keep the existing behaviour intact for other GKE clusters
+create_nomad_resources = false
 
 nomad_count   = 1
 

@@ -6,17 +6,20 @@ module "nomad_tls" {
 
 ### REQUIRED SERVICE API ###
 resource "google_project_service" "cloudresourcemanager_service" {
+  count = var.create_nomad_resources ? 1 : 0
   project            = var.project_id
   service            = "cloudresourcemanager.googleapis.com"
   disable_on_destroy = false
 }
 resource "google_project_service" "iam_service" {
+  count = var.create_nomad_resources ? 1 : 0
   depends_on         = [google_project_service.cloudresourcemanager_service]
   project            = var.project_id
   service            = "iam.googleapis.com"
   disable_on_destroy = false
 }
 resource "google_project_service" "compute_service" {
+  count = var.create_nomad_resources ? 1 : 0
   depends_on         = [google_project_service.cloudresourcemanager_service]
   project            = var.project_id
   service            = "compute.googleapis.com"
@@ -36,6 +39,7 @@ locals {
 
 ## SERVICE ACCOUNT ###
 resource "google_service_account" "nomad_service_account" {
+  count = var.create_nomad_resources ? 1 : 0
   depends_on   = [google_project_service.iam_service]
   account_id   = "${local.basename}-nomad-sa"
   display_name = "${local.basename}-nomad-sa"
@@ -43,6 +47,7 @@ resource "google_service_account" "nomad_service_account" {
 }
 
 resource "google_compute_instance_template" "nomad_template" {
+  count = var.create_nomad_resources ? 1 : 0
   # We've add this wait to ensure that
   depends_on = [time_sleep.wait_120_seconds]
 
@@ -50,7 +55,7 @@ resource "google_compute_instance_template" "nomad_template" {
   machine_type = "n1-standard-8"
 
   service_account {
-    email  = google_service_account.nomad_service_account.email
+    email  = google_service_account.nomad_service_account[0].email
     scopes = ["cloud-platform"]
   }
 
@@ -92,7 +97,7 @@ resource "google_compute_instance_template" "nomad_template" {
 }
 
 resource "google_compute_firewall" "nomad_ssh" {
-  count       = var.ssh_enabled ? 1 : 0
+  count       = var.create_nomad_resources && var.ssh_enabled ? 1 : 0
   name        = "${local.basename}-nomad-ssh"
   description = "${local.basename} firewall rule for CircleCI Server Nomand component"
 
@@ -106,19 +111,20 @@ resource "google_compute_firewall" "nomad_ssh" {
 }
 
 resource "google_compute_instance_group_manager" "nomad_manager" {
+  count = var.create_nomad_resources ? 1 : 0
   depends_on         = [google_compute_instance_template.nomad_template]
   name               = "${local.basename}-nomad-manager"
   base_instance_name = "${local.basename}-nomad-client"
   description        = "${local.basename} compute instance group manager for CircleCI Server Nomand component"
   zone               = local.zone
   target_size        = var.nomad_count
-
   version {
-    instance_template = google_compute_instance_template.nomad_template.self_link
+    instance_template = google_compute_instance_template.nomad_template[0].self_link
   }
 }
 
 
 resource "time_sleep" "wait_120_seconds" {
+  count = var.create_nomad_resources ? 1 : 0
   create_duration = "120s"
 }

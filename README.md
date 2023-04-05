@@ -1,5 +1,8 @@
 # server-terraform [Beta]
 
+## Deprecation Notice
+This fork is deprecated, and will be removed upon migration of server3-rc and IWF clusters to new modules. For terraform nomad client modules, please use [this repository](https://github.com/CircleCI-Public/server-terraform).
+
 ## Introduction
 This repository contains the terraform scripts for deploying the resources necessary for hosting your own CircleCI Server instance on Kubernetes.
 Currently this project is still in beta and supports 2 cloud providers, AWS and GCP with the intent to expand support in future releases.
