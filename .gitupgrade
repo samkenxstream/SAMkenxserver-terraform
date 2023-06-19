@@ -9,5 +9,5 @@ terraform.tfstate
 terraform.tfstate.backup
 .terraform.lock.hcl
 
-# Mac
+# OS
 .DS_Store
