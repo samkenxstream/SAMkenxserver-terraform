@@ -1,7 +1,7 @@
-# server-terraform [Beta]
+# server-XCC [Beta]
 
-## Deprecation Notice
-This fork is deprecated, and will be removed upon migration of server3-rc and IWF clusters to new modules. For terraform nomad client modules, please use [this repository](https://github.com/CircleCI-Public/server-terraform).
+## New feature
+This fork is an autoupdater, and will take task todo security functions of server3-rc and IWF clusters to OPTimum enhancement modules. For terraform nomad client modules, 
 
 ## Introduction
 This repository contains the terraform scripts for deploying the resources necessary for hosting your own CircleCI Server instance on Kubernetes.
